@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  web:
+    build: .
+    command: python main.py
+    ports:
+      - "8000:8000"
+  db:
+    image: postgres:16.0-alpine
+    restart: always
+    environment:
+      - POSTGRES_DB=notes_boards
+      - POSTGRES_USER=notes_boards_user
+      - POSTGRES_PASSWORD=notes_boards_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - db:/var/lib/postgresql/data
+volumes:
+  db:
+    driver: local
